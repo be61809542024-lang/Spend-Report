@@ -37,7 +37,7 @@ df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 # =========================
 st.subheader("Search Procurement Records")
 
-search_term = st.text_input("Search Supplier or Item Description")
+search_term = st.text_input("Search Supplier, Item Description or Department")
 
 search_df = df.copy()
 
