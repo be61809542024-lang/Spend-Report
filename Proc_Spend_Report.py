@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-file_path = os.path.join("data", "procurement.xlsx")
-
 # =========================
 # PAGE CONFIG (optional but professional)
 # =========================
