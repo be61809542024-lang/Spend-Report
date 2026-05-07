@@ -59,7 +59,7 @@ top_category = df.groupby("Classification")["Total"].sum().idxmax()
 
 monthly_trend = df.groupby(pd.Grouper(key="Date", freq="ME"))["Total"].sum()
 
-trend_direction = "Increasing 📈" if monthly_trend.iloc[-1] > monthly_trend.iloc[0] else "Decreasing 📉"
+trend_direction = "Increasing" if monthly_trend.iloc[-1] > monthly_trend.iloc[0] else "Decreasing"
 
 st.markdown(f"""
 - Highest spending department: **{top_department}**
