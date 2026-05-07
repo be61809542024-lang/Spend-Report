@@ -12,7 +12,6 @@ st.set_page_config(page_title="Procurement Spend Dashboard", layout="wide")
 # =========================
 st.title("PROCUREMENT SPEND REPORT")
 
-
 # =========================
 # LOAD DATA
 # =========================
@@ -113,8 +112,12 @@ fig1 = px.bar(
     x="Classification",
     y="Total",
     text_auto=True,
-    title="Spend by Classification"
+    title="Spend by Classification",
+    color="Classification",
+    color_discrete_sequence=px.colors.qualitative.Set2
 )
+
+fig1.update_layout(template="plotly_white")
 
 st.plotly_chart(fig1, use_container_width=True)
 
@@ -133,6 +136,8 @@ fig2 = px.line(
     title="Monthly Procurement Spend Trend"
 )
 
+fig2.update_layout(template="plotly_white")
+
 st.plotly_chart(fig2, use_container_width=True)
 
 # =========================
@@ -147,8 +152,12 @@ fig3 = px.bar(
     x="Supplier/Service provider",
     y="Total",
     text_auto=True,
-    title="Top 10 Suppliers"
+    title="Top 10 Suppliers",
+    color="Supplier/Service provider",
+    color_discrete_sequence=px.colors.qualitative.Bold
 )
+
+fig3.update_layout(template="plotly_white")
 
 st.plotly_chart(fig3, use_container_width=True)
 
@@ -164,8 +173,12 @@ fig4 = px.bar(
     x="Department",
     y="Total",
     text_auto=True,
-    title="Procurement Spend by Department"
+    title="Procurement Spend by Department",
+    color="Department",
+    color_discrete_sequence=px.colors.qualitative.Pastel
 )
+
+fig4.update_layout(template="plotly_white")
 
 st.plotly_chart(fig4, use_container_width=True)
 
@@ -180,8 +193,11 @@ fig5 = px.pie(
     campus_df,
     names="Campus",
     values="Total",
-    title="Campus Procurement Distribution"
+    title="Campus Procurement Distribution",
+    color_discrete_sequence=px.colors.qualitative.Set3
 )
+
+fig5.update_layout(template="plotly_white")
 
 st.plotly_chart(fig5, use_container_width=True)
 
