@@ -33,23 +33,6 @@ df["Qty"] = pd.to_numeric(df["Qty"], errors="coerce")
 df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
 # =========================
-# SEARCH FUNCTION
-# =========================
-st.subheader("Search Procurement Records")
-
-search_term = st.text_input("Search Supplier, Item Description or Department")
-
-search_df = df.copy()
-
-if search_term:
-    search_df = search_df[
-        search_df["Supplier/Service provider"].str.contains(search_term, case=False, na=False) |
-        search_df["Item Description"].str.contains(search_term, case=False, na=False)
-    ]
-
-st.dataframe(search_df, use_container_width=True)
-
-# =========================
 # DRILL-DOWN FILTER
 # =========================
 st.subheader("Drill-down Analysis")
@@ -100,6 +83,23 @@ st.markdown(f"""
 - Dominant category: **{top_category}**
 - Overall spending trend: **{trend_direction}**
 """)
+
+# =========================
+# SEARCH FUNCTION
+# =========================
+st.subheader("Search Procurement Records")
+
+search_term = st.text_input("Search Supplier, Item Description or Department")
+
+search_df = df.copy()
+
+if search_term:
+    search_df = search_df[
+        search_df["Supplier/Service provider"].str.contains(search_term, case=False, na=False) |
+        search_df["Item Description"].str.contains(search_term, case=False, na=False)
+    ]
+
+st.dataframe(search_df, use_container_width=True)
 
 # =========================
 # CHART 1: CLASSIFICATION
