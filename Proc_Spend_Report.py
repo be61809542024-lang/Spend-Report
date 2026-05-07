@@ -33,27 +33,12 @@ df["Qty"] = pd.to_numeric(df["Qty"], errors="coerce")
 df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
 # =========================
-# DRILL-DOWN FILTER
-# =========================
-st.subheader("Drill-down Analysis")
-
-selected_category = st.selectbox(
-    "Select Classification to Drill Down",
-    ["All"] + sorted(df["Classification"].dropna().unique().tolist())
-)
-
-drill_df = df.copy()
-
-if selected_category != "All":
-    drill_df = drill_df[drill_df["Classification"] == selected_category]
-
-# =========================
 # KPIs
 # =========================
-total_spend = drill_df["Total"].sum()
-total_lpos = drill_df["Lpo No."].nunique()
-avg_transaction = drill_df["Total"].mean()
-total_qty = drill_df["Qty"].sum()
+total_spend = df["Total"].sum()
+total_lpos = df["Lpo No."].nunique()
+avg_transaction = df["Total"].mean()
+total_qty = df["Qty"].sum()
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -69,11 +54,11 @@ st.divider()
 # =========================
 st.subheader("Executive Summary")
 
-top_department = drill_df.groupby("Department")["Total"].sum().idxmax()
-top_supplier = drill_df.groupby("Supplier/Service provider")["Total"].sum().idxmax()
-top_category = drill_df.groupby("Classification")["Total"].sum().idxmax()
+top_department = df.groupby("Department")["Total"].sum().idxmax()
+top_supplier = df.groupby("Supplier/Service provider")["Total"].sum().idxmax()
+top_category = df.groupby("Classification")["Total"].sum().idxmax()
 
-monthly_trend = drill_df.groupby(pd.Grouper(key="Date", freq="ME"))["Total"].sum()
+monthly_trend = df.groupby(pd.Grouper(key="Date", freq="ME"))["Total"].sum()
 
 trend_direction = "Increasing 📈" if monthly_trend.iloc[-1] > monthly_trend.iloc[0] else "Decreasing 📉"
 
@@ -105,6 +90,21 @@ st.dataframe(search_df, use_container_width=True)
 # CHART 1: CLASSIFICATION
 # =========================
 st.subheader("Procurement Spend by Classification")
+
+# =========================
+# DRILL-DOWN FILTER
+# =========================
+st.subheader("Drill-down Analysis")
+
+selected_category = st.selectbox(
+    "Select Classification to Drill Down",
+    ["All"] + sorted(df["Classification"].dropna().unique().tolist())
+)
+
+drill_df = df.copy()
+
+if selected_category != "All":
+    drill_df = drill_df[drill_df["Classification"] == selected_category]
 
 classification_df = drill_df.groupby("Classification")["Total"].sum().reset_index()
 
